@@ -1,4 +1,5 @@
 import path from 'node:path'
+import AutoImport from 'unplugin-auto-import/vite'
 
 import { defineConfig } from 'vite'
 import tailwindcss from '@tailwindcss/vite'
@@ -11,6 +12,12 @@ export default defineConfig({
     vue(),
     vueDevTools(),
     tailwindcss(),
+    AutoImport({
+      imports: ['vue', 'vue-router'],
+      dts: 'src/types/auto-imports.d.ts',
+      dirs: ['src/composables'],
+      vueTemplate: true,
+    }),
   ],
   resolve: {
     alias: {

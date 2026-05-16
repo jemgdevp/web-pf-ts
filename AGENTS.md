@@ -1,6 +1,6 @@
 # AGENTS.md — web-pf-ts
 
-Vue 3 + Vite 8 SPA with TypeScript, Pinia, and Vue Router. Student/final project.
+Vue 3 + Vite 8 SPA with TypeScript, Pinia, Vue Router, Tailwind v4, and shadcn-vue. Student/final project.
 
 ## Commands
 
@@ -12,9 +12,9 @@ Vue 3 + Vite 8 SPA with TypeScript, Pinia, and Vue Router. Student/final project
 | `pnpm lint` | `oxlint . --fix` then `eslint . --fix --cache` (in order) |
 | `pnpm format` | `prettier --write --experimental-cli src/` |
 
-- **pnpm only.** No npm/yarn. Lockfile is `pnpm-lock.yaml`.
-- **No test command exists.** No vitest, jest, or other test runner. The `CLAUDE.md` references `npm test` but it doesn't exist in `package.json`.
-- **Node.js**: `^20.19.0 || >=22.12.0`
+- **pnpm only.** No npm/yarn. Lockfile is `pnpm-lock.yaml`. Version locked to `pnpm@11.0.9` (`packageManager` field).
+- **No test command exists.** No vitest, jest, or other test runner. The `CLAUDE.md` references `npm test` but it doesn't exist.
+- **Node.js**: `>=22` (engines field).
 
 ## Toolchain quirks
 
@@ -30,28 +30,43 @@ Vue 3 + Vite 8 SPA with TypeScript, Pinia, and Vue Router. Student/final project
 
 ```
 src/
-├── main.ts          # createApp → Pinia → Router → mount('#app')
-├── App.vue          # Root: header nav (RouterLink) + RouterView
-├── router/index.ts  # createRouter, lazy-loads /about route
-├── stores/          # Pinia stores (Composition API: defineStore('name', () => {…}))
-├── views/           # Route-level components (HomeView, AboutView)
-├── components/      # Shared components
-│   └── icons/       # SVG icon components
-└── assets/
-    ├── base.css     # Design tokens (Vue theme), dark mode via prefers-color-scheme
-    └── main.css     # App layout, #app grid at >=1024px
+├── main.ts              # createApp → Pinia → Router → mount('#app')
+├── App.vue              # Root: <RouterView /> only (no layout/header)
+├── style.css            # Tailwind v4 + CSS design tokens + Google Fonts (JetBrains Mono)
+├── router/index.ts      # createRouter with createWebHistory, eagerly loads HomeView
+├── stores/counter.ts    # Pinia stores (Composition API: defineStore('name', () => {…}))
+├── views/HomeView.vue   # Route-level component at '/'
+├── components/ui/       # shadcn-vue UI primitives (barrel export pattern)
+│   └── button/          #   index.ts (exports Button + buttonVariants) + Button.vue
+└── lib/utils.ts         # cn() utility (clsx + tailwind-merge)
 ```
 
-- **Path alias**: `@/` → `./src/` (configured in both `vite.config.ts` and `tsconfig.app.json`)
-- **Router uses code splitting**: only HomeView is eagerly loaded. All others use dynamic `() => import()`.
-- **Pinia stores follow Composition API pattern**: `export const useXStore = defineStore('x', () => { … return { state, getters, actions } })`
-- **CSS**: scoped styles in SFCs (`<style scoped>`). Global styles in `src/assets/`.
+- **Path alias**: `@/` → `./src/` (configured in `vite.config.ts` and `tsconfig.app.json`).
+- **shadcn-vue aliases** (`components.json`): `@/components`, `@/components/ui`, `@/lib/utils`, `@/lib`, `@/composables`.
+- **Pinia stores follow Composition API pattern**: `export const useXStore = defineStore('x', () => { … return { state, getters, actions } })`.
+- **Component pattern**: shadcn-vue uses barrel exports (`index.ts` re-exports component + variants). Import with `import { Button } from '@/components/ui/button'`.
+- **CSS**: Tailwind v4 via `@tailwindcss/vite` plugin. No `tailwind.config` file — all config is CSS-first in `src/style.css`. Design tokens use OKLCH colors, dark mode via `.dark` class.
+- **Animations**: GSAP, `@vueuse/motion`, and `tw-animate-css`.
+
+## Key dependencies
+
+| Dependency | Purpose |
+|-----------|---------|
+| `reka-ui` | Headless UI primitives (shadcn-vue foundation) |
+| `class-variance-authority` | Variant-based component styling (`cva`) |
+| `clsx` + `tailwind-merge` | Class merging utility (`cn()` in `lib/utils.ts`) |
+| `lucide-vue-next` | Icon library (configured in `components.json`) |
+| `@vueuse/core` | Vue composable utilities |
+| `@vueuse/motion` | Declarative Vue animations |
+| `gsap` | Animation library |
+| `unplugin-icons` | Icon auto-import (dev) |
+| `rollup-plugin-visualizer` | Bundle size visualization (dev) |
 
 ## TypeScript
 
 - **Strict indexed access**: `noUncheckedIndexedAccess: true` in `tsconfig.app.json`. Array/object indexing returns `T | undefined`. Always handle the undefined case.
 - **Vue SFC types**: handled by `vue-tsc` + Volar extension. Standard `tsc` can't parse `.vue` files.
-- **env.d.ts**: only `/// <reference types="vite/client" />` — no custom type declarations yet.
+- **env.d.ts**: at project root (not `src/`). Only `/// <reference types="vite/client" />` — enables Vite env type hints.
 
 ## Style conventions
 
@@ -59,10 +74,28 @@ src/
 - No semicolons, single quotes, 100 char print width (Prettier)
 - Vue SFCs use `<script setup lang="ts">` with Composition API
 - Max file length: 500 lines (from CLAUDE.md rule)
+- Tailwind classes for all styling — no custom CSS in components unless unavoidable
 
-## Not in this repo
+## Environment variables
 
-- **No testing framework.** Add vitest if testing is needed.
-- **No CI/CD.** No GitHub Actions, no workflows.
-- **No SSR.** Client-side SPA only.
-- **No env files.** No `.env` or environment variable loading.
+- `.env` exists with `VITE_APP_NAME`. `.env.example` mirrors it.
+- Standard Vite env pattern: access via `import.meta.env.VITE_*` in client code.
+- `.env` is gitignored (per `CLAUDE.md` rule against committing secrets); `.env.example` is committed.
+
+## CI/CD
+
+- GitHub Actions workflow at `.github/workflows/ci.yml`
+- Runs on push/PR to `main`, manual dispatch supported
+- Installs with `pnpm install --frozen-lockfile` (pnpm 11, Node 22)
+- Runs `pnpm build` (vue-tsc + vite build) then uploads `dist/` artifact for 7 days
+- No test job (no test framework exists)
+
+## Anti-patterns
+
+- **NEVER** use `npm`/`yarn` — `pnpm` only (lockfile + `packageManager` field)
+- **NEVER** use bare `prettier --write` — always `pnpm format` (needs `--experimental-cli`)
+- **NEVER** run eslint before oxlint — lint order is oxlint → eslint
+- **NEVER** use `tsc` or `vue-tsc` without `--build` for type-checking
+- **NEVER** create files unless editing existing ones won't suffice
+- **NEVER** add files to repo root — use `/src`, `/tests`, `/docs`, `/config`, `/scripts`
+- **NEVER** exceed 500 lines per file

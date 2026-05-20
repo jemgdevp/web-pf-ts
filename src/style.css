@@ -1,5 +1,5 @@
 
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
 @import "tailwindcss";
 @import "tw-animate-css";
@@ -163,60 +163,4 @@
 .mermaid-host svg {
   max-width: 100%;
   height: auto;
-}
-
-/* Print stylesheet — exportar PDF desde el navegador */
-@media print {
-  [data-print-hide] {
-    display: none !important;
-  }
-
-  html, body {
-    background: #fff !important;
-    color: #0f172a !important;
-  }
-
-  /* Forzar tema claro al imprimir */
-  :root, .dark {
-    --background: oklch(1 0 0);
-    --foreground: oklch(0.141 0.005 285.823);
-    --card: oklch(1 0 0);
-    --card-foreground: oklch(0.141 0.005 285.823);
-    --muted: oklch(0.97 0 0);
-    --muted-foreground: oklch(0.4 0 0);
-    --border: oklch(0.85 0 0);
-    --primary: oklch(0.21 0.006 285.885);
-    --primary-foreground: oklch(0.985 0 0);
-    --accent: oklch(0.97 0 0);
-    --accent-foreground: oklch(0.21 0.006 285.885);
-    color-scheme: light;
-  }
-
-  [data-print-page] {
-    page-break-before: always;
-    break-before: page;
-  }
-
-  [data-print-page]:first-of-type {
-    page-break-before: auto;
-    break-before: auto;
-  }
-
-  *, *::before, *::after {
-    animation: none !important;
-    transition: none !important;
-    text-shadow: none !important;
-    box-shadow: none !important;
-  }
-
-  /* Layout para impresión: full-width sin sidebar */
-  [data-app-main] {
-    margin-left: 0 !important;
-    padding: 0 !important;
-    max-width: 100% !important;
-  }
-
-  @page {
-    margin: 1.5cm 1.4cm;
-  }
 }

@@ -10,7 +10,7 @@ useSectionAnimation()
 </script>
 
 <template>
-  <section data-print-page>
+  <section>
     <PageHeader
       :numero="6"
       titulo="Diagramas de actividad"

@@ -13,7 +13,7 @@ const totalRequerimientos = computed(() =>
 </script>
 
 <template>
-  <section data-print-page>
+  <section>
     <PageHeader
       :numero="3"
       titulo="Requerimientos"

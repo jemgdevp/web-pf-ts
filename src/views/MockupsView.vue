@@ -15,11 +15,6 @@ import SupervisorMonitoreo from '@/components/mockups/supervisor/SupervisorMonit
 import AdministradorReportes from '@/components/mockups/administrador/AdministradorReportes.vue'
 import AdministradorUsuarios from '@/components/mockups/administrador/AdministradorUsuarios.vue'
 
-interface Props {
-  printMode?: boolean
-}
-
-defineProps<Props>()
 useSectionAnimation()
 
 interface MockupItem {
@@ -154,18 +149,16 @@ const grupos: Grupo[] = [
 </script>
 
 <template>
-  <section data-print-page>
+  <section>
     <PageHeader
       :numero="7"
       titulo="Mockups"
       subtitulo="Vista previa interactiva de las interfaces principales por actor. Cliente y Repartidor operan desde móvil; Supervisor y Administrador desde dashboard web. Cada mockup se alinea con uno de los casos de uso identificados."
     />
 
-    <!-- Modo navegable con Tabs -->
-    <Tabs v-if="!printMode" default-value="cliente" data-anim class="w-full">
+    <Tabs default-value="cliente" data-anim class="w-full">
       <TabsList
         class="grid h-auto w-full grid-cols-2 gap-1 bg-muted/50 p-1 sm:grid-cols-4"
-        data-print-hide
       >
         <TabsTrigger
           v-for="g in grupos"
@@ -229,48 +222,5 @@ const grupos: Grupo[] = [
         </div>
       </TabsContent>
     </Tabs>
-
-    <!-- Modo print: todo en cascada -->
-    <div v-else class="space-y-14">
-      <article
-        v-for="g in grupos"
-        :key="g.id"
-        class="space-y-5"
-      >
-        <header class="flex items-center gap-3 border-b border-border pb-3">
-          <span class="flex size-9 items-center justify-center rounded-md bg-brand/15 text-brand">
-            <component :is="g.icon" class="size-4" />
-          </span>
-          <div>
-            <div class="flex items-center gap-2">
-              <h3 class="font-heading text-base font-bold">{{ g.nombre }}</h3>
-              <Badge class="bg-brand text-brand-foreground hover:bg-brand/90 font-mono text-[10px]">
-                {{ g.cu }}
-              </Badge>
-            </div>
-            <p class="mt-0.5 text-xs text-muted-foreground">{{ g.descripcion }}</p>
-          </div>
-        </header>
-
-        <div
-          :class="[
-            'gap-8',
-            g.frame === 'mobile' ? 'grid sm:grid-cols-2' : 'flex flex-col',
-          ]"
-        >
-          <MockupFrame
-            v-for="m in g.mockups"
-            :key="m.id"
-            :frame="g.frame"
-            :url="m.url"
-            :device="m.device"
-            :title="m.titulo"
-            :caption="m.caption"
-          >
-            <component :is="m.component" />
-          </MockupFrame>
-        </div>
-      </article>
-    </div>
   </section>
 </template>

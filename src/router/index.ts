@@ -112,19 +112,6 @@ const router = createRouter({
   routes: [
     ...sectionRoutes,
     {
-      path: '/imprimir',
-      name: 'imprimir',
-      component: () => import('@/views/ImprimibleView.vue'),
-      meta: {
-        seccion: {
-          numero: 0,
-          titulo: 'Vista para imprimir',
-          subtitulo: 'Todas las secciones en una sola página',
-          icon: 'Printer',
-        },
-      },
-    },
-    {
       path: '/:pathMatch(.*)*',
       redirect: '/',
     },

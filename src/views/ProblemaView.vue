@@ -11,7 +11,7 @@ useSectionAnimation()
 </script>
 
 <template>
-  <section data-print-page>
+  <section>
     <PageHeader
       :numero="2"
       titulo="Planteamiento del problema"

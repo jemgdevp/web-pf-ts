@@ -12,7 +12,7 @@ const secundarios = computed(() => useCases.filter((uc) => uc.tipo === 'secundar
 </script>
 
 <template>
-  <section data-print-page>
+  <section>
     <PageHeader
       :numero="5"
       titulo="Descripciones de casos de uso"

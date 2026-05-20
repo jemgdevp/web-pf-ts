@@ -23,6 +23,7 @@ declare global {
   const isReadonly: typeof import('vue').isReadonly
   const isRef: typeof import('vue').isRef
   const isShallow: typeof import('vue').isShallow
+  const isShortcutsOpen: typeof import('../composables/useAppShortcuts').isShortcutsOpen
   const markRaw: typeof import('vue').markRaw
   const nextTick: typeof import('vue').nextTick
   const onActivated: typeof import('vue').onActivated
@@ -55,6 +56,7 @@ declare global {
   const toValue: typeof import('vue').toValue
   const triggerRef: typeof import('vue').triggerRef
   const unref: typeof import('vue').unref
+  const useAppShortcuts: typeof import('../composables/useAppShortcuts').useAppShortcuts
   const useAttrs: typeof import('vue').useAttrs
   const useCssModule: typeof import('vue').useCssModule
   const useCssVars: typeof import('vue').useCssVars
@@ -65,6 +67,7 @@ declare global {
   const useRouter: typeof import('vue-router').useRouter
   const useScrollReveal: typeof import('../composables/useScrollReveal').useScrollReveal
   const useSectionAnimation: typeof import('../composables/useSectionAnimation').useSectionAnimation
+  const useSidebar: typeof import('../composables/useSidebar').useSidebar
   const useSlots: typeof import('vue').useSlots
   const useTemplateRef: typeof import('vue').useTemplateRef
   const watch: typeof import('vue').watch
@@ -101,6 +104,7 @@ declare module 'vue' {
     readonly isReadonly: UnwrapRef<typeof import('vue')['isReadonly']>
     readonly isRef: UnwrapRef<typeof import('vue')['isRef']>
     readonly isShallow: UnwrapRef<typeof import('vue')['isShallow']>
+    readonly isShortcutsOpen: UnwrapRef<typeof import('../composables/useAppShortcuts')['isShortcutsOpen']>
     readonly markRaw: UnwrapRef<typeof import('vue')['markRaw']>
     readonly nextTick: UnwrapRef<typeof import('vue')['nextTick']>
     readonly onActivated: UnwrapRef<typeof import('vue')['onActivated']>
@@ -133,6 +137,7 @@ declare module 'vue' {
     readonly toValue: UnwrapRef<typeof import('vue')['toValue']>
     readonly triggerRef: UnwrapRef<typeof import('vue')['triggerRef']>
     readonly unref: UnwrapRef<typeof import('vue')['unref']>
+    readonly useAppShortcuts: UnwrapRef<typeof import('../composables/useAppShortcuts')['useAppShortcuts']>
     readonly useAttrs: UnwrapRef<typeof import('vue')['useAttrs']>
     readonly useCssModule: UnwrapRef<typeof import('vue')['useCssModule']>
     readonly useCssVars: UnwrapRef<typeof import('vue')['useCssVars']>
@@ -143,6 +148,7 @@ declare module 'vue' {
     readonly useRouter: UnwrapRef<typeof import('vue-router')['useRouter']>
     readonly useScrollReveal: UnwrapRef<typeof import('../composables/useScrollReveal')['useScrollReveal']>
     readonly useSectionAnimation: UnwrapRef<typeof import('../composables/useSectionAnimation')['useSectionAnimation']>
+    readonly useSidebar: UnwrapRef<typeof import('../composables/useSidebar')['useSidebar']>
     readonly useSlots: UnwrapRef<typeof import('vue')['useSlots']>
     readonly useTemplateRef: UnwrapRef<typeof import('vue')['useTemplateRef']>
     readonly watch: UnwrapRef<typeof import('vue')['watch']>

@@ -1,22 +1,28 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { gsap } from '@/lib/gsap'
-import { Truck, MapPin, ArrowRight } from 'lucide-vue-next'
+import { MapPin, ArrowRight } from 'lucide-vue-next'
 import { projectInfo } from '@/data/project'
+import portadaPhoto from '@/assets/jemgdevp.jpeg'
 
+const photo = ref<HTMLElement | null>(null)
 const eyebrow = ref<HTMLElement | null>(null)
 const title = ref<HTMLElement | null>(null)
 const subtitle = ref<HTMLElement | null>(null)
 const card = ref<HTMLElement | null>(null)
 const accentLine = ref<HTMLElement | null>(null)
-const ornament = ref<HTMLElement | null>(null)
 const cta = ref<HTMLElement | null>(null)
 
 onMounted(() => {
   const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
 
-  tl.from(eyebrow.value, { opacity: 0, x: -16, duration: 0.5 })
-    .from(accentLine.value, { scaleX: 0, transformOrigin: 'left center', duration: 0.6 }, '-=0.3')
+  tl.from(photo.value, { opacity: 0, scale: 0.85, duration: 0.9 })
+    .from(eyebrow.value, { opacity: 0, y: 12, duration: 0.5 }, '-=0.4')
+    .from(
+      accentLine.value,
+      { scaleX: 0, transformOrigin: 'center center', duration: 0.6 },
+      '-=0.3',
+    )
     .from(
       title.value?.querySelectorAll('.split-word') ?? [],
       { opacity: 0, y: 28, duration: 0.7, stagger: 0.08 },
@@ -29,11 +35,6 @@ onMounted(() => {
       '-=0.2',
     )
     .from(cta.value, { opacity: 0, y: 10, duration: 0.4 }, '-=0.2')
-    .from(
-      ornament.value,
-      { opacity: 0, scale: 0.85, rotate: -8, duration: 1.2, ease: 'power2.out' },
-      0,
-    )
 
   // Pulse en la flecha del CTA
   gsap.to('[data-cta-arrow]', {
@@ -50,32 +51,42 @@ const tituloWords = projectInfo.titulo.split(' ')
 
 <template>
   <section
-    data-print-page
-    class="relative isolate flex min-h-[80vh] flex-col justify-center overflow-hidden"
+    class="relative isolate flex min-h-[80vh] flex-col items-center justify-center overflow-hidden text-center"
   >
     <!-- Background grid + radial gradient -->
     <div
-      class="absolute inset-0 -z-10 bg-grid opacity-50 [mask-image:radial-gradient(ellipse_at_top,_black_30%,_transparent_70%)] print:hidden"
+      class="absolute inset-0 -z-10 bg-grid opacity-50 [mask-image:radial-gradient(ellipse_at_top,_black_30%,_transparent_70%)]"
       aria-hidden="true"
     />
 
-    <!-- Ornamental truck icon (cosmético, oculto al imprimir) -->
-    <div
-      ref="ornament"
-      class="pointer-events-none absolute -right-12 top-1/2 -z-10 hidden -translate-y-1/2 text-brand/8 md:block print:hidden"
-      aria-hidden="true"
-    >
-      <Truck class="size-[28rem]" stroke-width="0.5" />
-    </div>
+    <div class="relative mx-auto flex max-w-3xl flex-col items-center">
+      <!-- Foto + halo difuminado -->
+      <div ref="photo" class="relative mb-10 size-36 md:size-44">
+        <!-- Halo difuminado (misma foto, escalada y borrosa) -->
+        <img
+          :src="portadaPhoto"
+          alt=""
+          aria-hidden="true"
+          class="pointer-events-none absolute inset-0 size-full scale-[1.7] rounded-full object-cover opacity-50 blur-3xl saturate-150"
+        />
+        <!-- Foto principal -->
+        <img
+          :src="portadaPhoto"
+          alt="Foto del estudiante"
+          class="relative size-full rounded-full object-cover shadow-2xl ring-4 ring-background ring-offset-2 ring-offset-brand/40"
+        />
+      </div>
 
-    <div class="relative">
+      <!-- Eyebrow + accent line -->
       <div ref="eyebrow" class="flex items-center gap-3">
         <span ref="accentLine" class="inline-block h-px w-10 bg-brand" aria-hidden="true" />
         <p class="font-mono text-xs uppercase tracking-[0.22em] text-brand">
           Proyecto Final · {{ projectInfo.asignatura }}
         </p>
+        <span class="inline-block h-px w-10 bg-brand" aria-hidden="true" />
       </div>
 
+      <!-- Título -->
       <h1
         ref="title"
         class="mt-8 text-balance text-5xl font-bold leading-[1.05] tracking-tight md:text-7xl"
@@ -87,16 +98,18 @@ const tituloWords = projectInfo.titulo.split(' ')
         >{{ word }}</span>
       </h1>
 
+      <!-- Subtitle -->
       <p
         ref="subtitle"
-        class="mt-8 max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-xl"
+        class="mx-auto mt-8 max-w-2xl text-balance text-lg leading-relaxed text-muted-foreground md:text-xl"
       >
         {{ projectInfo.subtitulo }}
       </p>
 
+      <!-- Info card -->
       <div
         ref="card"
-        class="mt-14 grid max-w-3xl gap-x-10 gap-y-6 rounded-xl border border-border bg-card/80 p-7 text-sm backdrop-blur sm:grid-cols-2 md:p-8"
+        class="mt-14 grid w-full max-w-3xl gap-x-10 gap-y-6 rounded-xl border border-border bg-card/80 p-7 text-left text-sm backdrop-blur sm:grid-cols-2 md:p-8"
       >
         <div data-info>
           <p class="font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
@@ -139,7 +152,7 @@ const tituloWords = projectInfo.titulo.split(' ')
         </div>
       </div>
 
-      <div ref="cta" class="mt-12 flex items-center gap-2 print:hidden">
+      <div ref="cta" class="mt-12 flex items-center justify-center gap-2">
         <RouterLink
           to="/problema"
           class="group inline-flex items-center gap-3 rounded-md bg-brand px-5 py-3 text-sm font-medium text-brand-foreground shadow-sm transition-opacity hover:opacity-90"

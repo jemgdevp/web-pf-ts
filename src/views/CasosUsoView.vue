@@ -20,7 +20,7 @@ useSectionAnimation()
 </script>
 
 <template>
-  <section data-print-page>
+  <section>
     <PageHeader
       :numero="4"
       titulo="Diagrama de casos de uso"

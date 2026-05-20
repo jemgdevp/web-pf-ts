@@ -50,6 +50,9 @@ importers:
       vue-router:
         specifier: ^5.0.7
         version: 5.0.7(@vue/compiler-sfc@3.5.34)(pinia@3.0.4(typescript@6.0.3)(vue@3.5.34(typescript@6.0.3)))(vue@3.5.34(typescript@6.0.3))
+      vue-shortcut-manager:
+        specifier: ^1.0.8
+        version: 1.0.8(vue@3.5.34(typescript@6.0.3))
     devDependencies:
       '@eslint/css':
         specifier: ^1.2.0
@@ -3505,6 +3508,11 @@ packages:
         optional: true
       pinia:
         optional: true
+
+  vue-shortcut-manager@1.0.8:
+    resolution: {integrity: sha512-E+ClF+FqTjd9S9pOWMmGlEGVAYCsUcmQJdNOKmLnNoXwi1h1URAD42KPiKGZ2d0SFOcoMkkdW1FcCPvEw/GOOQ==}
+    peerDependencies:
+      vue: ^3.0.0
 
   vue-tsc@3.2.9:
     resolution: {integrity: sha512-qm8/nbo+9eZc1SCndm9wT+gq23pM+wRIdHY0wjm83B3lIginHTwcdrLUyTrKjDWXbMVNjKegNrnymhpdqnCL3A==}
@@ -7039,6 +7047,10 @@ snapshots:
     optionalDependencies:
       '@vue/compiler-sfc': 3.5.34
       pinia: 3.0.4(typescript@6.0.3)(vue@3.5.34(typescript@6.0.3))
+
+  vue-shortcut-manager@1.0.8(vue@3.5.34(typescript@6.0.3)):
+    dependencies:
+      vue: 3.5.34(typescript@6.0.3)
 
   vue-tsc@3.2.9(typescript@6.0.3):
     dependencies:

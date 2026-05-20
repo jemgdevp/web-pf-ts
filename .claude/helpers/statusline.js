@@ -197,7 +197,7 @@ function getSystemMetrics() {
   let subAgents = 0;
 
   try {
-    const mem = execSync('ps aux | grep -E "(node|agentic|claude)" | grep -v grep | awk \'{sum += \$6} END {print int(sum/1024)}\'', { encoding: 'utf-8' });
+    const mem = execSync('ps aux | grep -E "(node|agentic|claude)" | grep -v grep | awk \'{sum += $6} END {print int(sum/1024)}\'', { encoding: 'utf-8' });
     memoryMB = parseInt(mem.trim()) || 0;
   } catch (e) {
     // Fallback

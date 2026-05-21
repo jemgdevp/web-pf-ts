@@ -1,5 +1,6 @@
 import { onMounted, onBeforeUnmount, type Ref } from 'vue'
 import { gsap, ScrollTrigger } from '@/lib/gsap'
+import { usePrefersReducedMotion } from './usePrefersReducedMotion'
 
 interface ScrollRevealOptions {
   y?: number
@@ -25,6 +26,7 @@ export function useScrollReveal(
     once = true,
   } = options
 
+  const prefersReducedMotion = usePrefersReducedMotion()
   let triggers: ScrollTrigger[] = []
 
   onMounted(() => {
@@ -36,6 +38,11 @@ export function useScrollReveal(
         : []
 
     if (!elements.length) return
+
+    if (prefersReducedMotion.value) {
+      gsap.set(elements, { opacity: 1, y: 0, clearProps: 'all' })
+      return
+    }
 
     const tween = gsap.from(elements, {
       opacity: 0,

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useShortcutList } from 'vue-shortcut-manager'
-import { Keyboard } from 'lucide-vue-next'
+import { Keyboard, Smartphone } from 'lucide-vue-next'
 import {
   Dialog,
   DialogContent,
@@ -10,8 +10,10 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 import { isShortcutsOpen } from '@/composables/useAppShortcuts'
+import { useBreakpoint } from '@/composables/useBreakpoint'
 
 const { shortcuts } = useShortcutList()
+const { isMobile } = useBreakpoint()
 
 const groupOrder = ['Navegación', 'Saltos rápidos', 'Interfaz']
 
@@ -78,6 +80,16 @@ function formatKey(key: string): string[] {
           en cualquier momento para abrir esta ayuda.
         </DialogDescription>
       </DialogHeader>
+
+      <div
+        v-if="isMobile"
+        class="flex items-start gap-3 rounded-md border border-border bg-accent/40 p-3 text-xs leading-relaxed text-muted-foreground"
+      >
+        <Smartphone class="mt-0.5 size-4 shrink-0 text-brand" />
+        <p>
+          Atajos de teclado disponibles en escritorio. Usa el menú lateral para navegar.
+        </p>
+      </div>
 
       <div class="-mx-2 max-h-[60vh] space-y-5 overflow-y-auto px-2">
         <section v-for="group in grouped" :key="group.scope">

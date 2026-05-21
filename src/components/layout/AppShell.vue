@@ -1,18 +1,26 @@
 <script setup lang="ts">
 import { RouterView, useRoute } from 'vue-router'
 import { computed } from 'vue'
+import { Menu } from 'lucide-vue-next'
 import SidebarNav from './SidebarNav.vue'
+import MobileNavSheet from './MobileNavSheet.vue'
 import ShortcutsDialog from './ShortcutsDialog.vue'
+import ThemeToggle from './ThemeToggle.vue'
 import { sectionRoutes } from '@/router'
 import { TooltipProvider } from '@/components/ui/tooltip'
 import { useSidebar } from '@/composables/useSidebar'
 import { useAppShortcuts } from '@/composables/useAppShortcuts'
+import { usePrefersReducedMotion } from '@/composables/usePrefersReducedMotion'
+import { usePageTitle } from '@/composables/usePageTitle'
 
 const route = useRoute()
-const { isCollapsed } = useSidebar()
+const { isCollapsed, toggleMobile } = useSidebar()
+const prefersReducedMotion = usePrefersReducedMotion()
 
 // Registra los atajos globales una sola vez para toda la app.
 useAppShortcuts()
+// Sincroniza document.title con la sección actual.
+usePageTitle()
 
 const currentSection = computed(() => {
   const r = sectionRoutes.find((sr) => sr.name === route.name)
@@ -26,6 +34,7 @@ const totalSections = sectionRoutes.length
   <TooltipProvider :delay-duration="200">
     <div class="relative min-h-screen bg-background text-foreground">
       <SidebarNav />
+      <MobileNavSheet />
 
       <main
         :class="[
@@ -35,9 +44,18 @@ const totalSections = sectionRoutes.length
       >
         <!-- Mobile topbar -->
         <div
-          class="sticky top-0 z-20 flex items-center justify-between border-b border-border bg-background/80 px-4 py-3 backdrop-blur md:hidden"
+          class="sticky top-0 z-20 flex min-h-12 items-center justify-between gap-2 border-b border-border bg-background/80 px-3 backdrop-blur sm:px-4 md:hidden pt-[env(safe-area-inset-top)]"
         >
+          <button
+            type="button"
+            aria-label="Abrir navegación"
+            class="inline-flex h-11 w-11 items-center justify-center rounded-md text-foreground transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            @click="toggleMobile"
+          >
+            <Menu class="size-5" />
+          </button>
           <span class="font-heading text-sm font-bold">Logística — Análisis</span>
+          <ThemeToggle />
         </div>
 
         <!-- Breadcrumb -->
@@ -54,9 +72,22 @@ const totalSections = sectionRoutes.length
           </div>
         </div>
 
-        <div class="mx-auto w-full max-w-5xl px-6 py-10 md:px-10 md:py-14">
+        <div class="mx-auto w-full max-w-5xl px-4 py-8 sm:px-6 sm:py-10 lg:px-10 md:py-14">
           <RouterView v-slot="{ Component, route: r }">
             <Transition
+              v-if="prefersReducedMotion"
+              mode="out-in"
+              enter-active-class="transition-opacity duration-150"
+              leave-active-class="transition-opacity duration-100"
+              enter-from-class="opacity-0"
+              enter-to-class="opacity-100"
+              leave-from-class="opacity-100"
+              leave-to-class="opacity-0"
+            >
+              <component :is="Component" :key="r.fullPath" />
+            </Transition>
+            <Transition
+              v-else
               mode="out-in"
               enter-active-class="transition-all duration-300 ease-out"
               leave-active-class="transition-all duration-200 ease-in"

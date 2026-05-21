@@ -181,7 +181,7 @@ const grupos: Grupo[] = [
         class="mt-6 focus-visible:ring-0"
       >
         <!-- Descripción del grupo -->
-        <div class="mb-6 flex items-start gap-4 rounded-xl border border-border bg-card p-5">
+        <div class="mb-6 flex items-start gap-4 rounded-xl border border-border bg-card p-4 sm:p-5">
           <span class="flex size-11 shrink-0 items-center justify-center rounded-lg bg-brand/15 text-brand">
             <component :is="g.icon" class="size-5" />
           </span>
@@ -204,7 +204,7 @@ const grupos: Grupo[] = [
         <!-- Mockups -->
         <div
           :class="[
-            'gap-8',
+            'gap-6 sm:gap-8',
             g.frame === 'mobile' ? 'grid sm:grid-cols-2' : 'flex flex-col',
           ]"
         >

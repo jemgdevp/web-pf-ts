@@ -146,10 +146,7 @@ const linePoints = computed(() =>
 
 const totalIngresos = rows.reduce((acc, r) => acc + r.ingreso, 0)
 
-const enterUp = (delay = 0) => ({
-  initial: { opacity: 0, y: 12 },
-  visibleOnce: { opacity: 1, y: 0, transition: { delay, duration: 380, ease: 'easeOut' } },
-})
+const { enterUp } = useMockupMotion()
 
 const facturacion = [38, 52, 64, 49, 78, 95, 88]
 const maxFact = Math.max(...facturacion)

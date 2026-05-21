@@ -3,10 +3,12 @@ import PageHeader from '@/components/layout/PageHeader.vue'
 import MermaidDiagram from '@/components/content/MermaidDiagram.vue'
 import { Badge } from '@/components/ui/badge'
 import { useSectionAnimation } from '@/composables/useSectionAnimation'
+import { useScrollReveal } from '@/composables/useScrollReveal'
 import { activityDiagrams } from '@/data/activityDiagrams'
 import { useCaseByCodigo } from '@/data/useCases'
 
 useSectionAnimation()
+useScrollReveal('[data-reveal]')
 </script>
 
 <template>
@@ -43,7 +45,7 @@ useSectionAnimation()
       <article
         v-for="(diagrama, i) in activityDiagrams"
         :key="diagrama.codigoCU"
-        data-anim
+        data-reveal
       >
         <header class="mb-4 flex items-start justify-between gap-4">
           <div>
@@ -73,11 +75,17 @@ useSectionAnimation()
           </div>
         </header>
 
-        <MermaidDiagram
-          :source="diagrama.mermaid"
-          :id="`act-${diagrama.codigoCU}`"
-          :aria-label="`Diagrama de actividad de ${diagrama.codigoCU}`"
-        />
+        <div class="relative -mx-4 sm:mx-0">
+          <div
+            class="pointer-events-none absolute inset-x-0 -top-px h-px animate-shimmer-brand"
+            aria-hidden="true"
+          />
+          <MermaidDiagram
+            :source="diagrama.mermaid"
+            :id="`act-${diagrama.codigoCU}`"
+            :aria-label="`Diagrama de actividad de ${diagrama.codigoCU}`"
+          />
+        </div>
       </article>
     </div>
   </section>

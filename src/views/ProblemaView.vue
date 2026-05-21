@@ -33,7 +33,7 @@ useSectionAnimation()
         El sistema involucra cuatro roles bien diferenciados, cada uno con responsabilidades específicas en el flujo logístico.
       </p>
 
-      <div class="mt-6 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+      <div class="mt-6 grid gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 xl:grid-cols-4">
         <div
           v-for="actor in actors"
           :key="actor.id"
@@ -45,7 +45,7 @@ useSectionAnimation()
     </div>
 
     <!-- 3 columnas: Actualmente / Problemas / Se requiere -->
-    <div class="mt-16 grid gap-5 md:grid-cols-3">
+    <div class="mt-16 grid gap-4 sm:gap-5 md:grid-cols-3">
       <Card data-anim class="border-border">
         <CardHeader class="flex flex-row items-center gap-3 space-y-0 pb-3">
           <span class="flex size-9 items-center justify-center rounded-md bg-muted text-muted-foreground">

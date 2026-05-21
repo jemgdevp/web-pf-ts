@@ -54,10 +54,7 @@ const rolMeta: Record<Rol, { label: string; icon: LucideIcon; cls: string }> = {
   admin: { label: 'Admin', icon: ShieldCheck, cls: 'bg-rose-500/15 text-rose-700 dark:text-rose-300' },
 }
 
-const enterUp = (delay = 0) => ({
-  initial: { opacity: 0, y: 12 },
-  visibleOnce: { opacity: 1, y: 0, transition: { delay, duration: 380, ease: 'easeOut' } },
-})
+const { enterUp } = useMockupMotion()
 
 const filtroRol = ref<'todos' | Rol>('todos')
 const busqueda = ref('')

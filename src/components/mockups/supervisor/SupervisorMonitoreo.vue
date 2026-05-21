@@ -64,10 +64,7 @@ const tipoMeta: Record<ActividadFila['tipo'], { cls: string; dot: string }> = {
   pausa: { cls: 'text-amber-700 dark:text-amber-300', dot: 'bg-amber-500' },
 }
 
-const enterUp = (delay = 0) => ({
-  initial: { opacity: 0, y: 12 },
-  visibleOnce: { opacity: 1, y: 0, transition: { delay, duration: 380, ease: 'easeOut' } },
-})
+const { enterUp } = useMockupMotion()
 </script>
 
 <template>

@@ -51,6 +51,8 @@
 }
 
 :root {
+  color-scheme: light;
+  accent-color: oklch(0.488 0.217 264);
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.141 0.005 285.823);
@@ -91,6 +93,8 @@
 }
 
 .dark {
+  color-scheme: dark;
+  accent-color: oklch(0.7 0.18 264);
   --background: oklch(0.141 0.005 285.823);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.21 0.006 285.885);
@@ -163,4 +167,58 @@
 .mermaid-host svg {
   max-width: 100%;
   height: auto;
+}
+
+/* Loops ambientales largos — solo Portada por defecto */
+@keyframes grid-drift {
+  0%, 100% { background-position: 0 0; }
+  50%      { background-position: 24px 24px; }
+}
+@keyframes orbit-slow {
+  to { transform: rotate(360deg); }
+}
+@keyframes shimmer-brand {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@utility animate-grid-drift {
+  animation: grid-drift 60s ease-in-out infinite;
+}
+@utility animate-orbit-slow {
+  animation: orbit-slow 48s linear infinite;
+  transform-origin: center center;
+}
+@utility animate-shimmer-brand {
+  background-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in oklch, var(--brand) 35%, transparent) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer-brand 8s linear infinite;
+}
+
+/* Print: expandir accordions y tabs ocultos */
+@media print {
+  [data-state="closed"] [data-radix-collection-item],
+  [data-radix-accordion-content],
+  [data-state="inactive"][role="tabpanel"] {
+    display: block !important;
+    height: auto !important;
+    overflow: visible !important;
+    opacity: 1 !important;
+  }
+}
+
+/* Honor el preferente de movimiento reducido a nivel global */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
 }

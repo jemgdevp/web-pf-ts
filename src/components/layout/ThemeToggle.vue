@@ -17,7 +17,7 @@ function toggle() {
   <button
     type="button"
     :aria-label="mode === 'dark' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'"
-    class="inline-flex size-9 items-center justify-center rounded-md border border-border bg-background text-muted-foreground transition-colors hover:bg-accent hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+    class="inline-flex h-10 w-10 items-center justify-center rounded-md border border-border bg-background text-muted-foreground transition-colors hover:bg-accent hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
     @click="toggle"
   >
     <Sun v-if="mode === 'dark'" class="size-4" />

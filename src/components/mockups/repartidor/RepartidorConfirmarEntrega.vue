@@ -17,10 +17,7 @@ import { Switch } from '@/components/ui/switch'
 const esDestinatario = ref(true)
 const contactless = ref(false)
 
-const enterUp = (delay = 0) => ({
-  initial: { opacity: 0, y: 12 },
-  visibleOnce: { opacity: 1, y: 0, transition: { delay, duration: 350, ease: 'easeOut' } },
-})
+const { enterUp } = useMockupMotion()
 </script>
 
 <template>

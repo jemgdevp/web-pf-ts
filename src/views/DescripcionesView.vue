@@ -3,9 +3,11 @@ import { computed } from 'vue'
 import PageHeader from '@/components/layout/PageHeader.vue'
 import UseCaseDescriptionCard from '@/components/content/UseCaseDescriptionCard.vue'
 import { useSectionAnimation } from '@/composables/useSectionAnimation'
+import { useScrollReveal } from '@/composables/useScrollReveal'
 import { useCases } from '@/data/useCases'
 
 useSectionAnimation()
+useScrollReveal('[data-reveal]')
 
 const principales = computed(() => useCases.filter((uc) => uc.tipo === 'principal'))
 const secundarios = computed(() => useCases.filter((uc) => uc.tipo === 'secundario'))
@@ -16,8 +18,15 @@ const secundarios = computed(() => useCases.filter((uc) => uc.tipo === 'secundar
     <PageHeader
       :numero="5"
       titulo="Descripciones de casos de uso"
-      subtitulo="Especificación detallada de los dos casos de uso principales y los dos secundarios siguiendo la plantilla estándar: nombre, actores, tipo, precondiciones, descripción, flujo normal, flujos alternos, excepciones y postcondiciones."
+      subtitulo="Cuatro casos de uso especificados con plantilla UML completa."
     />
+
+    <p data-anim class="mb-10 max-w-3xl text-sm leading-relaxed text-muted-foreground">
+      Especificación detallada de los dos casos de uso principales y los dos secundarios siguiendo
+      la plantilla estándar: nombre, actores, tipo, precondiciones, descripción, flujo normal,
+      flujos alternos, excepciones y postcondiciones. Las secciones más usadas se muestran
+      expandidas; el resto se abre bajo demanda.
+    </p>
 
     <!-- Principales -->
     <div data-anim class="mb-12">
@@ -30,7 +39,7 @@ const secundarios = computed(() => useCases.filter((uc) => uc.tipo === 'secundar
       </div>
 
       <div class="space-y-7">
-        <div v-for="uc in principales" :key="uc.codigo" data-anim>
+        <div v-for="uc in principales" :key="uc.codigo" data-reveal>
           <UseCaseDescriptionCard :use-case="uc" />
         </div>
       </div>
@@ -47,7 +56,7 @@ const secundarios = computed(() => useCases.filter((uc) => uc.tipo === 'secundar
       </div>
 
       <div class="space-y-7">
-        <div v-for="uc in secundarios" :key="uc.codigo" data-anim>
+        <div v-for="uc in secundarios" :key="uc.codigo" data-reveal>
           <UseCaseDescriptionCard :use-case="uc" />
         </div>
       </div>

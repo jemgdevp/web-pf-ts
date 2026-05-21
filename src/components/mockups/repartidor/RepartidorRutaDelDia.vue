@@ -30,10 +30,7 @@ const stops: Stop[] = [
   { codigo: 'MSJ-2026-04141', direccion: 'Av 19 #100-08', zona: 'Usaquén', ventana: '12:00–13:00', distancia: '6.4 km', estado: 'pendiente' },
 ]
 
-const enterUp = (delay = 0) => ({
-  initial: { opacity: 0, y: 12 },
-  visibleOnce: { opacity: 1, y: 0, transition: { delay, duration: 350, ease: 'easeOut' } },
-})
+const { enterUp } = useMockupMotion()
 
 const total = stops.length
 const completed = stops.filter((s) => s.estado === 'entregado').length

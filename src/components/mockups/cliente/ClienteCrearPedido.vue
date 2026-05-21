@@ -4,10 +4,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Badge } from '@/components/ui/badge'
 
-const enterFromRight = (delay = 0) => ({
-  initial: { opacity: 0, x: 18 },
-  visibleOnce: { opacity: 1, x: 0, transition: { delay, duration: 380, ease: 'easeOut' } },
-})
+const { enterFromRight } = useMockupMotion()
 </script>
 
 <template>

@@ -4,6 +4,7 @@ import { useColorMode } from '@vueuse/core'
 import { useShortcuts } from 'vue-shortcut-manager'
 import { sectionRoutes } from '@/router'
 import { useSidebar } from './useSidebar'
+import { useBreakpoint } from './useBreakpoint'
 
 export const isShortcutsOpen = ref(false)
 
@@ -14,7 +15,13 @@ export function useAppShortcuts() {
     selector: 'html',
     modes: { dark: 'dark', light: '' },
   })
-  const { toggle: toggleSidebar } = useSidebar()
+  const { toggle: toggleSidebar, toggleMobile } = useSidebar()
+  const { isMobile } = useBreakpoint()
+
+  const toggleSidebarOrMobile = () => {
+    if (isMobile.value) toggleMobile()
+    else toggleSidebar()
+  }
 
   const goSection = (idx: number) => {
     const route = sectionRoutes[idx]
@@ -59,7 +66,7 @@ export function useAppShortcuts() {
     },
     {
       key: 'b',
-      handler: toggleSidebar,
+      handler: toggleSidebarOrMobile,
       description: 'Mostrar / ocultar barra lateral',
       scope: 'Interfaz',
     },

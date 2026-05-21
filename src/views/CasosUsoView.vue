@@ -38,11 +38,17 @@ useSectionAnimation()
           Desplazar para ver completo
         </span>
       </div>
-      <MermaidDiagram
-        :source="useCaseDiagramMermaid"
-        id="cu-diagram"
-        aria-label="Diagrama de casos de uso del sistema de gestión logística"
-      />
+      <div class="relative -mx-4 sm:mx-0">
+        <div
+          class="pointer-events-none absolute inset-x-0 -top-px h-px animate-shimmer-brand"
+          aria-hidden="true"
+        />
+        <MermaidDiagram
+          :source="useCaseDiagramMermaid"
+          id="cu-diagram"
+          aria-label="Diagrama de casos de uso del sistema de gestión logística"
+        />
+      </div>
     </div>
 
     <!-- Resumen actores ↔ casos -->
@@ -54,32 +60,34 @@ useSectionAnimation()
         Cada actor del sistema tiene asignados los siguientes casos de uso.
       </p>
 
-      <div class="mt-4 overflow-hidden rounded-lg border border-border">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead class="w-1/3">Actor</TableHead>
-              <TableHead>Casos de uso</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            <TableRow v-for="r in useCaseDiagramResumen.actores" :key="r.actor">
-              <TableCell class="font-medium">{{ r.actor }}</TableCell>
-              <TableCell>
-                <div class="flex flex-wrap gap-1.5">
-                  <Badge
-                    v-for="c in r.casos"
-                    :key="c"
-                    variant="secondary"
-                    class="font-mono text-[11px]"
-                  >
-                    {{ c }}
-                  </Badge>
-                </div>
-              </TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
+      <div class="-mx-4 mt-4 overflow-x-auto sm:mx-0">
+        <div class="overflow-hidden rounded-lg border border-border">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead class="w-1/3">Actor</TableHead>
+                <TableHead>Casos de uso</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow v-for="r in useCaseDiagramResumen.actores" :key="r.actor">
+                <TableCell class="font-medium">{{ r.actor }}</TableCell>
+                <TableCell>
+                  <div class="flex flex-wrap gap-1.5">
+                    <Badge
+                      v-for="c in r.casos"
+                      :key="c"
+                      variant="secondary"
+                      class="font-mono text-[11px]"
+                    >
+                      {{ c }}
+                    </Badge>
+                  </div>
+                </TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </div>
       </div>
     </div>
 
@@ -136,36 +144,38 @@ useSectionAnimation()
         Relaciones de dependencia tipo «include» (siempre se ejecuta) y «extend» (puede ejecutarse).
       </p>
 
-      <div class="mt-4 overflow-hidden rounded-lg border border-border">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Tipo</TableHead>
-              <TableHead>Caso base</TableHead>
-              <TableHead></TableHead>
-              <TableHead>Caso relacionado</TableHead>
-              <TableHead>Descripción</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            <TableRow v-for="(rel, i) in useCaseDiagramResumen.relaciones" :key="i">
-              <TableCell>
-                <span class="inline-flex items-center gap-1 font-mono text-xs">
-                  <Link2 class="size-3 text-brand" />
-                  {{ rel.tipo }}
-                </span>
-              </TableCell>
-              <TableCell class="font-medium">{{ rel.desde }}</TableCell>
-              <TableCell class="text-muted-foreground">
-                <ArrowRight class="size-3.5" />
-              </TableCell>
-              <TableCell class="font-medium">{{ rel.hacia }}</TableCell>
-              <TableCell class="text-sm text-muted-foreground">
-                {{ rel.descripcion }}
-              </TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
+      <div class="-mx-4 mt-4 overflow-x-auto sm:mx-0">
+        <div class="overflow-hidden rounded-lg border border-border">
+          <Table class="min-w-[640px]">
+            <TableHeader>
+              <TableRow>
+                <TableHead>Tipo</TableHead>
+                <TableHead>Caso base</TableHead>
+                <TableHead></TableHead>
+                <TableHead>Caso relacionado</TableHead>
+                <TableHead>Descripción</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow v-for="(rel, i) in useCaseDiagramResumen.relaciones" :key="i">
+                <TableCell>
+                  <span class="inline-flex items-center gap-1 font-mono text-xs">
+                    <Link2 class="size-3 text-brand" />
+                    {{ rel.tipo }}
+                  </span>
+                </TableCell>
+                <TableCell class="font-medium">{{ rel.desde }}</TableCell>
+                <TableCell class="text-muted-foreground">
+                  <ArrowRight class="size-3.5" />
+                </TableCell>
+                <TableCell class="font-medium">{{ rel.hacia }}</TableCell>
+                <TableCell class="text-sm text-muted-foreground">
+                  {{ rel.descripcion }}
+                </TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </div>
       </div>
     </div>
   </section>

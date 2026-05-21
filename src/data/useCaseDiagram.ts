@@ -1,6 +1,6 @@
 export const useCaseDiagramMermaid = `flowchart LR
-  classDef actor fill:#fff,stroke:#1d4ed8,stroke-width:2px,color:#0f172a,font-weight:bold
-  classDef caso fill:#eff6ff,stroke:#1d4ed8,stroke-width:1.5px,color:#0f172a
+  classDef actor fill:#fff,stroke:#3b58c4,stroke-width:2px,color:#0f172a,font-weight:bold
+  classDef caso fill:#eef2ff,stroke:#3b58c4,stroke-width:1.5px,color:#0f172a
   classDef sub fill:#f8fafc,stroke:#94a3b8,stroke-width:1px,stroke-dasharray:3 3,color:#334155
 
   Cliente(["👤 Cliente"]):::actor
@@ -30,7 +30,7 @@ export const useCaseDiagramMermaid = `flowchart LR
   CU02 -. "«include»" .-> EVID
   CU03 -. "«include»" .-> OPT
 
-  linkStyle 0,1,2,3 stroke:#1d4ed8,stroke-width:1.5px
+  linkStyle 0,1,2,3 stroke:#3b58c4,stroke-width:1.5px
   linkStyle 4,5,6,7 stroke:#64748b,stroke-width:1px
 `
 

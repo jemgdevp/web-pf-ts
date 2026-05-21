@@ -3,6 +3,7 @@ import { ref, onMounted } from 'vue'
 import { gsap } from '@/lib/gsap'
 import { Briefcase, User, Cog, ListChecks, Shield, type LucideIcon } from 'lucide-vue-next'
 import type { RequirementGroup } from '@/types/domain'
+import { usePrefersReducedMotion } from '@/composables/usePrefersReducedMotion'
 
 interface Props {
   group: RequirementGroup
@@ -11,6 +12,7 @@ interface Props {
 defineProps<Props>()
 
 const root = ref<HTMLElement | null>(null)
+const prefersReducedMotion = usePrefersReducedMotion()
 
 const iconMap: Record<string, LucideIcon> = {
   negocio: Briefcase,
@@ -23,6 +25,10 @@ const iconMap: Record<string, LucideIcon> = {
 onMounted(() => {
   const items = root.value?.querySelectorAll('[data-req-item]') ?? []
   if (!items.length) return
+  if (prefersReducedMotion.value) {
+    gsap.set(items, { opacity: 1, y: 0, clearProps: 'all' })
+    return
+  }
   gsap.from(items, {
     opacity: 0,
     y: 16,
@@ -40,7 +46,7 @@ onMounted(() => {
 
 <template>
   <article ref="root" class="rounded-xl border border-border bg-card">
-    <header class="flex items-start gap-4 border-b border-border p-6">
+    <header class="flex items-start gap-3 border-b border-border p-4 sm:gap-4 sm:p-6">
       <span class="flex size-11 shrink-0 items-center justify-center rounded-lg bg-brand/12 text-brand">
         <component :is="iconMap[group.categoria] ?? ListChecks" class="size-5" />
       </span>
@@ -58,7 +64,7 @@ onMounted(() => {
         v-for="req in group.items"
         :key="req.codigo"
         data-req-item
-        class="flex flex-col gap-2 px-6 py-4 transition-colors hover:bg-accent/40 sm:flex-row sm:items-start sm:gap-5"
+        class="flex flex-col gap-2 px-4 py-3 transition-colors hover:bg-accent/40 sm:flex-row sm:items-start sm:gap-5 sm:px-6 sm:py-4"
       >
         <span
           class="inline-flex w-fit shrink-0 items-center rounded-md bg-brand px-2 py-0.5 font-mono text-[11px] font-semibold text-brand-foreground sm:mt-0.5"

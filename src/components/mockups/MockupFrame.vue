@@ -63,7 +63,7 @@ withDefaults(defineProps<Props>(), {
 
     <!-- MOBILE CHROME -->
     <template v-else>
-      <div class="mx-auto w-full max-w-[380px]">
+      <div class="mx-auto w-full max-w-[340px] sm:max-w-[380px] lg:max-w-[400px]">
         <div
           class="relative overflow-hidden rounded-[2.25rem] border border-border bg-card p-1.5 shadow-[0_22px_60px_-30px_rgb(0_0_0_/_0.35)] transition-shadow group-hover:shadow-[0_30px_70px_-30px_rgb(0_0_0_/_0.4)]"
         >
@@ -89,7 +89,7 @@ withDefaults(defineProps<Props>(), {
               </span>
             </div>
 
-            <div class="min-h-[520px]">
+            <div class="min-h-[460px] sm:min-h-[520px]">
               <slot />
             </div>
 
@@ -107,7 +107,7 @@ withDefaults(defineProps<Props>(), {
 
     <figcaption
       v-if="title || caption"
-      class="mt-3 flex items-baseline gap-2 px-1 text-xs"
+      class="mt-3 flex flex-col gap-1 px-1 text-xs sm:flex-row sm:items-baseline sm:gap-2"
     >
       <span v-if="title" class="font-medium text-foreground">{{ title }}</span>
       <span v-if="caption" class="text-muted-foreground">{{ caption }}</span>

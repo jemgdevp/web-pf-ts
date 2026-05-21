@@ -58,11 +58,17 @@ declare global {
   const unref: typeof import('vue').unref
   const useAppShortcuts: typeof import('../composables/useAppShortcuts').useAppShortcuts
   const useAttrs: typeof import('vue').useAttrs
+  const useBreakpoint: typeof import('../composables/useBreakpoint').useBreakpoint
   const useCssModule: typeof import('vue').useCssModule
   const useCssVars: typeof import('vue').useCssVars
+  const useDiagramDraw: typeof import('../composables/useDiagramDraw').useDiagramDraw
+  const useGsapContext: typeof import('../composables/useGsapContext').useGsapContext
   const useId: typeof import('vue').useId
   const useLink: typeof import('vue-router').useLink
+  const useMockupMotion: typeof import('../composables/useMockupMotion').useMockupMotion
   const useModel: typeof import('vue').useModel
+  const usePageTitle: typeof import('../composables/usePageTitle').usePageTitle
+  const usePrefersReducedMotion: typeof import('../composables/usePrefersReducedMotion').usePrefersReducedMotion
   const useRoute: typeof import('vue-router').useRoute
   const useRouter: typeof import('vue-router').useRouter
   const useScrollReveal: typeof import('../composables/useScrollReveal').useScrollReveal
@@ -139,11 +145,17 @@ declare module 'vue' {
     readonly unref: UnwrapRef<typeof import('vue')['unref']>
     readonly useAppShortcuts: UnwrapRef<typeof import('../composables/useAppShortcuts')['useAppShortcuts']>
     readonly useAttrs: UnwrapRef<typeof import('vue')['useAttrs']>
+    readonly useBreakpoint: UnwrapRef<typeof import('../composables/useBreakpoint')['useBreakpoint']>
     readonly useCssModule: UnwrapRef<typeof import('vue')['useCssModule']>
     readonly useCssVars: UnwrapRef<typeof import('vue')['useCssVars']>
+    readonly useDiagramDraw: UnwrapRef<typeof import('../composables/useDiagramDraw')['useDiagramDraw']>
+    readonly useGsapContext: UnwrapRef<typeof import('../composables/useGsapContext')['useGsapContext']>
     readonly useId: UnwrapRef<typeof import('vue')['useId']>
     readonly useLink: UnwrapRef<typeof import('vue-router')['useLink']>
+    readonly useMockupMotion: UnwrapRef<typeof import('../composables/useMockupMotion')['useMockupMotion']>
     readonly useModel: UnwrapRef<typeof import('vue')['useModel']>
+    readonly usePageTitle: UnwrapRef<typeof import('../composables/usePageTitle')['usePageTitle']>
+    readonly usePrefersReducedMotion: UnwrapRef<typeof import('../composables/usePrefersReducedMotion')['usePrefersReducedMotion']>
     readonly useRoute: UnwrapRef<typeof import('vue-router')['useRoute']>
     readonly useRouter: UnwrapRef<typeof import('vue-router')['useRouter']>
     readonly useScrollReveal: UnwrapRef<typeof import('../composables/useScrollReveal')['useScrollReveal']>

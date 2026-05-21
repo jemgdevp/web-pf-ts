@@ -26,10 +26,7 @@ const steps: TimelineStep[] = [
   { label: 'Entregado', state: 'pending' },
 ]
 
-const enterUp = (delay = 0) => ({
-  initial: { opacity: 0, y: 14 },
-  visibleOnce: { opacity: 1, y: 0, transition: { delay, duration: 380, ease: 'easeOut' } },
-})
+const { enterUp } = useMockupMotion()
 </script>
 
 <template>

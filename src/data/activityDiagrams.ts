@@ -8,8 +8,8 @@ export const activityDiagrams: ActivityDiagram[] = [
       'Representa el flujo que sigue un cliente para registrar un nuevo pedido en el sistema, incluyendo la validación de cobertura, el cálculo de tarifa, la posibilidad de cotizar sin confirmar y la notificación final al supervisor logístico.',
     mermaid: `flowchart TD
   classDef inicio fill:#0f172a,stroke:#0f172a,color:#fff,stroke-width:2px
-  classDef fin fill:#1d4ed8,stroke:#0f172a,color:#fff,stroke-width:2px
-  classDef act fill:#eff6ff,stroke:#1d4ed8,stroke-width:1.5px,color:#0f172a
+  classDef fin fill:#3b58c4,stroke:#0f172a,color:#fff,stroke-width:2px
+  classDef act fill:#eef2ff,stroke:#3b58c4,stroke-width:1.5px,color:#0f172a
   classDef dec fill:#fef3c7,stroke:#b45309,stroke-width:1.5px,color:#7c2d12
   classDef err fill:#fee2e2,stroke:#b91c1c,stroke-width:1.5px,color:#7f1d1d
 
@@ -48,8 +48,8 @@ export const activityDiagrams: ActivityDiagram[] = [
       'Representa el flujo del repartidor desde que abre su ruta del día hasta que confirma la entrega de un paquete, incluyendo el manejo de receptor distinto al destinatario y el caso de receptor ausente.',
     mermaid: `flowchart TD
   classDef inicio fill:#0f172a,stroke:#0f172a,color:#fff,stroke-width:2px
-  classDef fin fill:#1d4ed8,stroke:#0f172a,color:#fff,stroke-width:2px
-  classDef act fill:#eff6ff,stroke:#1d4ed8,stroke-width:1.5px,color:#0f172a
+  classDef fin fill:#3b58c4,stroke:#0f172a,color:#fff,stroke-width:2px
+  classDef act fill:#eef2ff,stroke:#3b58c4,stroke-width:1.5px,color:#0f172a
   classDef dec fill:#fef3c7,stroke:#b45309,stroke-width:1.5px,color:#7c2d12
   classDef err fill:#fee2e2,stroke:#b91c1c,stroke-width:1.5px,color:#7f1d1d
 
